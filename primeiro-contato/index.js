@@ -1,17 +1,15 @@
 const http = require('http');
-const fs = require('fs');
 
-const hostname = "127.0.0.1";
-const port = 3000;
+const atendeRequisicao = (req , res) => {
+    res.writeHead(200,{'Content-Type':'text/html'});
+    res.write('<h1>Olá mundo!</h1>');
+    res.end();
+}
 
-const server = http.createServer((req, res)=>{
-    fs.readFile('index.html',(err,data)=>{
-        res.writeHead(200,{'Content-Type':'Text/html'});
-        res.write(data);
-        return res.end();
-    })
-})
+const server = http.createServer(atendeRequisicao);
 
-server.listen(port,hostname,()=>{
-    console.log("Servidor está rodando !");
-})
+const serverLigou = () =>{
+    console.log("servidor rodando");
+}
+
+server.listen(3000, serverLigou);
