@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const methodOverride = require('method-override');
+const error = require('./middlewares/error');
 
 const app = express();
 
@@ -21,6 +22,10 @@ consign({})
 .then('controllers')
 .then('routes')
 .into(app);
+
+//tratamento de erros
+app.use(error.notFound);
+app.use(error.serverError);
 
 app.listen(3000,()=>{
   console.log('Servidor rodando');

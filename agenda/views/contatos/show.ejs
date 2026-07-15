@@ -1,0 +1,15 @@
+<%- include('../partials/header'); %>
+<header>
+    <h2>Agenda -Dados do contato</h2>
+</header>
+<section>
+    <form action="/contato/<%- id %>?_method=delete" method="post">
+        <p><label>Nome:</label><%- contato.nome %></p>
+        <p><label>Email:</label><%- contato.email %></p>
+        <p>
+            <button type="submit">Excluir</button>
+            <a href="/contato/<%- id %>/editar">Editar</a>
+        </p>
+    </form>
+</section>
+<%- include('../partials/sair'); %>

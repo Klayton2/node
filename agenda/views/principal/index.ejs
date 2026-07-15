@@ -11,6 +11,24 @@
             <br>
             <button type="submit">Entrar</button>
         </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% contatos.forEach((contato,index)=>{ %>
+                    <tr><%- contato.nome %>></td>
+                        <td><%- contato.email %></td>
+                        <td><a href="/contato/<%- index %>"></a>Detalhes</td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
     </section>
 </body>
+<%- include('../partials/sair') %>
 </html>
