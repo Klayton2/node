@@ -5,4 +5,14 @@
 <section>
     <p>Bem vino <%-usuario.nome %></p>
 </section>
+<% contatos.forEarch((contato, index) =>{
+    <tr>
+        <td><%- contato.nome %></td>
+        <td><%- contato.email %></td>
+        <td>
+            <a href="/contatos/<%- index %>">Detalhes</a>
+            <a href="/chat">Conversar</a>
+        </td>
+    </tr>
+<%}) %>
 <%- include ('../partial/sair'); %>
