@@ -2,9 +2,12 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
     const socket = io();
+    const sala = '<%- sala %>';
+    socket.emit('create-room', sala);
     socket.on('send-client', (msg) => {
     document.getElementById('chat').innerHTML += msg;
     });
+    
     const enviar = () => {
     const nome = document.getElementById('nome').value; 
     const msg = document.getElementById('msg').value;

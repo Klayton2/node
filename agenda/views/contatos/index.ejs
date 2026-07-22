@@ -1,18 +1,31 @@
-<%- include ('../header');%>
+<%- include ('../partials/header);%>
 <header>
-    <h1>Agenda de Contatos</h1>
+    <h2>Agenda de contatos</h2>
 </header>
 <section>
-    <p>Bem vino <%-usuario.nome %></p>
-</section>
-<% contatos.forEarch((contato, index) =>{
-    <tr>
-        <td><%- contato.nome %></td>
-        <td><%- contato.email %></td>
-        <td>
-            <a href="/contatos/<%- index %>">Detalhes</a>
-            <a href="/chat">Conversar</a>
-        </td>
-    </tr>
-<%}) %>
-<%- include ('../partial/sair'); %>
+    <!-- Formulário de novo contato -->
+    <table>
+    <thead>
+        <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% contatos.forEach(function(contato, index) { %>
+        <tr>
+            <td><%- contato.nome %></td>
+            <td><%- contato.email %></td>
+            <td>
+            <a href="/contato/<%- index %>">Detalhes</a>
+            <a href="/chat" id="chat_<%- contato.email %>">
+                Conversar
+            </a>
+            </td>
+        </tr>
+        <% }) %>
+    </tbody>
+    </table>
+</section> <%- include('../partials/notify'); %>
+<%- include('../partials/exit'); %>

@@ -7,36 +7,51 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const methodOverride = require('method-override');
+const config = require('./config')
 const error = require('./middlewares/error');
 
 const app = express();
 const server = http.Server(app);
 const io = socketIo(server);
+const store = new expressSession.MemoryStore();
 
 //carregamento dos middlewares
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
+app.use(expressSession({
+  store,
+  name: config.sessionKey,
+  secret: config.sessionSecret
+}));
 app.use(cookieParser('agenda'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname,'public')));
 
+//Leitura dos cookies
+io.use((socket, next) => {
+  const cookieData = socket.request.headers.cookie;
+  const cookieObj = cookieParser(cookieData);
+  const sessionHash = cookieObj[config.sessionKey] || '';
+  const sessionId = sessionHash.split('.')[0].slice(2);
+  store.all((err, sessions) => {
+    const currentSession = sessions[sessionId];
+    if(err || !currentSession) {
+      return next(new Error('Acesso Negado!'));
+    }
+    socket.handshake.session = currentSession;
+    return next();
+  });
+});
+
 //carregamento das rotas
 consign({})
 .include('models')
 .then('controllers')
 .then('routes')
-.into(app);
-
-//carregamento do socket.io
-io.on('connection',(client) =>{
-  client.on('send-server',(data) =>{
-    const resposta = `<b>${data.nome}:</b> ${data.msg}<br>`;
-    client.emit('send-client',resposta);
-    client.broadcast.emit('send-client', resposta);
-  });
-});
+.then('events')
+.into(app,io);
 
 //tratamento de erros
 app.use(error.notFound);
