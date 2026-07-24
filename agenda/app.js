@@ -7,8 +7,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
 const config = require('./config')
 const error = require('./middlewares/error');
+
+mongoose.connect('mongodb://localhost:27017/agenda');
 
 const app = express();
 const server = http.Server(app);
