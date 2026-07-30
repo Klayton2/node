@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: darkslategrey;
+}
+
+body h1 {
+    font-size: 20pt;
+    color: white;
+    text-align: center;
+}
+
+.tarefas {
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px;
+    font: normal 15pt Arial;
+    text-align: center;
+}

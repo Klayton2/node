@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Afazeres</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <header>
+    <h1>Lista de Afazeres</h1>
+    </header>
+    <div class="tarefas">
+            <form action="/adicionar" method="post">
+                <input type="text" id="tarefas" name = "tarefa" placeholder="Insira a tarefas..." required>
+                <button type="submit" id="addTarefa">Adicionar</button>
+            </form>
+            <br>
+            <% for(let i = 0; i < tarefasList.length; i++){ %>
+            <p><%= tarefasList[i] %>  | <a href="/deletar/<%= i %>">X</a></p>
+
+
+            <% }%>
+    </div>
+</body>
+</html>

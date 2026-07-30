@@ -15,7 +15,7 @@ module.exports = (app) => {
         show(req, res){
             const {id} = req.params;
             const {usuario} = req.session;
-            const contatos = usuario.contato[id];
+            const contato = usuario.contatos[id];
             res.render('contatos/edit',{id, contato, usuario});
         },
         update(req, res){
@@ -25,7 +25,7 @@ module.exports = (app) => {
             res.redirect('/contatos');
         },
         destroy(req, res){
-            const {contato} = req.body;
+            const {id} = req.params;
             const {usuario} = req.session;
             usuario.contatos.splice(id,1);
             res.redirect('/contatos');
